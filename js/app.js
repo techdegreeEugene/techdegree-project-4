@@ -37,9 +37,10 @@
 
 var game = new Game();
 document.querySelector("#btn__reset").addEventListener("click", (e) => {
+	
 	e.target = game.startGame();
-
 });
+
 
 
 // game.activePhrase.checkLetter('a');

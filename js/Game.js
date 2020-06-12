@@ -44,6 +44,7 @@
 		document.querySelector('#overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
     	this.activePhrase.addPhraseToDisplay();
+
 	}
 	
 	handleInteraction(e) {
@@ -56,14 +57,12 @@
 		} else {
 			e.target.className = "chosen";
 			this.activePhrase.showMatchedLetter(e.target.textContent);
-			if (this.checkForWin(true)) {
-				this.gameOver();
+			if (this.checkForWin()) {
+			this.gameOver();	
+
 			}
 
 		}
-
-
-
 	}
 	/**
 	* Checks for winning move
@@ -71,15 +70,13 @@
 	won
 	*/
 	checkForWin() {
-	let lis = document.querySelectorAll("li");
-		for (let j = 0; j < lis.length; j++) {
-			if(lis[j].className.charAt(0) === "h") {
-				return false;
-			} else {
-				return true;
-			}
-		};
-	}
+	let show = document.querySelectorAll(".show");
+    let letters = document.querySelectorAll(".letter");
+    if (show.length == letters.length){
+      this.gameOver(true);
+    }
+  }
+	
 	/**
 	* Increases the value of the missed property
 	* Removes a life from the scoreboard
@@ -109,31 +106,38 @@
 	if (gameWon) {
 		document.querySelector('h1').textContent = "Congratulations. You've Won";
 		document.querySelector('#overlay').className = 'win';
+		document.querySelector("#btn__reset").addEventListener("click", (e) => {
+			this.reset();
+		})
 
 	} else {
 		document.querySelector('h1').textContent = "So Close. Play Again";
 		document.querySelector('#overlay').className = 'lose';
+		document.querySelector("#btn__reset").addEventListener("click", (e) => {
+			this.reset();
+		})
 	}
-
-
-
-	};
+	
+};
 
 	reset() {
-		let letterPlaceHolderUl = document.querySelector("#phrase ul"); // Remove all `li` elements from the Phrase `ul` element.
-		letterPlaceHolderUl.innerHTML = " ";
-		// Enable all of the onscreen keyboard buttons and update each to use the `key` CSS class,
-		//and not use the `chosen` or `wrong` CSS classes.
-		let key1 = document.getElementsByClassName("key");
-		for ( let l = 0; l < key1.length; l++) {
-			key1[l].disabled = false;
-			key1[l].className = "key";
-			}
-			let lives = document.getElementsByTagName("img");		
-			lives[0].src = "images/liveHeart.png";
-			lives[1].src = "images/liveHeart.png";
-			lives[2].src = "images/liveHeart.png";
-			lives[3].src = "images/liveHeart.png";
-			lives[4].src = "images/liveHeart.png";
+		location.reload();
+
+
+		// let letterPlaceHolderUl = document.querySelector("#phrase ul"); // Remove all `li` elements from the Phrase `ul` element.
+		// // letterPlaceHolderUl.innerHTML = " ";
+		// // Enable all of the onscreen keyboard buttons and update each to use the `key` CSS class,
+		// //and not use the `chosen` or `wrong` CSS classes.
+		// let key1 = document.getElementsByClassName("key");
+		// for ( let l = 0; l < key1.length; l++) {
+		// 	key1[l].disabled = false;
+		// 	key1[l].className = "key";
+		// 	}
+		// 	let lives = document.getElementsByTagName("img");		
+		// 	lives[0].src = "images/liveHeart.png";
+		// 	lives[1].src = "images/liveHeart.png";
+		// 	lives[2].src = "images/liveHeart.png";
+		// 	lives[3].src = "images/liveHeart.png";
+		// 	lives[4].src = "images/liveHeart.png";
 	}
 }
